@@ -1,10 +1,12 @@
 import random
 from faker import Faker
 from datetime import datetime, timedelta
-from reference_data import insurances
+from reference_data import insurances, reasons
 
 fake = Faker()
 
+## Utility function to generate a realistic hospital/facility name. 
+## This function could also be modified to pull from reference_data
 def generate_hospital_name():
     hospital_prefixes = ['Saint', 'Mercy', 'Mount', 'Memorial', 'General']
     hospital_suffixes = ['Hospital', 'Medical Center', 'Clinic', 'Health System', 'Healthcare']
@@ -15,12 +17,10 @@ def generate_hospital_name():
 
     return f"{prefix} {middle} {suffix}"
 
+## Utility function to generate valid provider NPI numbers
 def generate_npi():
     # Generate the first 9 digits randomly
     npi = [random.randint(0, 9) for _ in range(9)]
-    
-    # # Prepend the NPI prefix for a 10-digit NPI (80840 for individual providers)
-    # npi = [8, 0, 8, 4, 0] + npi
     
     # Calculate the checksum using the Luhn algorithm
     def luhn_checksum(digits):
@@ -43,6 +43,8 @@ def generate_npi():
     
     return npi_str
 
+## Utility function to generate random admit and discharge datetime within the last 48 hours. 
+## The discharge date will be within 24 hours after the admit date
 def get_admit_date_time():
     now = datetime.now()
     random_two_day_delta = timedelta(hours=random.randint(0,48),
@@ -59,23 +61,20 @@ def get_admit_date_time():
 
     return admit_date, disch_date
 
+## Utility function to get appointment reasons from reference data
 def generate_appointment_reason():
-    reasons = [
-        "CHECK-UP",
-        "EMERGENCY",
-        "FOLLOW-UP",
-        "ROUTINE",
-        "WALK-IN"
-    ]
     event_reason = appt_reason = random.choice(reasons)
     return event_reason, appt_reason
 
+## Utility function to generate a random scheduling staff member
 def generate_scheduling_staff():
     emp_id = str(random.randint(100000,999999)) # Employee Nbr
     first_name = fake.first_name()
     last_name = fake.last_name()
     return emp_id, first_name, last_name
 
+## Utility function to get appointment start time for some datetime in the next 30 days
+## defines appointment duration and creates the appointment end time
 def get_appointment_date_time():
     now = datetime.now()
     random_30_delta = timedelta(days=random.randint(0,30),
@@ -89,6 +88,7 @@ def get_appointment_date_time():
 
     return appt_start_time, appt_end_time, appt_duration
 
+## Utility function to get insurance/payer from reference data
 def get_insurance_data():
     insurance = random.choice(insurances)
     payer_name = insurance['payer_name']

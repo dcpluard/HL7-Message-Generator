@@ -1,25 +1,13 @@
 from hl7apy.core import Message
 from datetime import datetime
-from segment_generation import generate_pid_segment, generate_pv1_segment, generate_sch_segment, generate_in1_segment, generate_rgs_segment, generate_ais_segment, generate_aig_segment, generate_ail_segment
+from segment_generation import generate_msh_segment, generate_pid_segment, generate_pv1_segment, generate_sch_segment, generate_in1_segment, generate_rgs_segment, generate_ais_segment, generate_aig_segment, generate_ail_segment
 
-SENDING_APPLICATION = "CLIENTADT"
-SENDING_FACILITY = "CLIENTFACILITY"
-RECEIVING_FACILITY = "INTELY"
-RECEIVING_APPLICATION = "INTELY"
-MESSAGE_DATE_TIME = datetime.now().strftime("%Y%m%d%H%M%S")
-
+## Function to assemble and generate message for ADT A01
 def generate_adt_a01(message_type, event_type, hl7_version):
     msg = Message("ADT_A01", version=hl7_version)
     ## MSH
-    msg.msh.msh_3 = SENDING_APPLICATION
-    msg.msh.msh_4 = SENDING_FACILITY
-    msg.msh.msh_5 = RECEIVING_APPLICATION
-    msg.msh.msh_6 = RECEIVING_FACILITY
-    msg.msh.msh_7 = MESSAGE_DATE_TIME  # Message date/time in YYYYMMDDHHMMSS format
-    msg.msh.msh_9 = message_type + "^" + event_type  # Message type
-    msg.msh.msh_10 = "123456"  # Message control ID
-    msg.msh.msh_11 = "P"  # Processing ID
-    msg.msh.msh_12 = hl7_version  # Version ID
+    msh_segment = generate_msh_segment(hl7_version, message_type, event_type)
+    msg.add(msh_segment)
     ## EVN
     msg.evn.evn_1 = event_type
     ## PID
@@ -33,18 +21,12 @@ def generate_adt_a01(message_type, event_type, hl7_version):
     msg.add(in1_segment)
     return msg.to_er7().replace('\r', '\n')
 
+## Function to assemble and generate message for ADT A03
 def generate_adt_a03(message_type, event_type, hl7_version):
     msg = Message("ADT_A03", version=hl7_version)
     ## MSH
-    msg.msh.msh_3 = SENDING_APPLICATION
-    msg.msh.msh_4 = SENDING_FACILITY
-    msg.msh.msh_5 = RECEIVING_APPLICATION
-    msg.msh.msh_6 = RECEIVING_FACILITY
-    msg.msh.msh_7 = MESSAGE_DATE_TIME  # Message date/time in YYYYMMDDHHMMSS format
-    msg.msh.msh_9 = message_type + "^" + event_type  # Message type
-    msg.msh.msh_10 = "123456"  # Message control ID
-    msg.msh.msh_11 = "P"  # Processing ID
-    msg.msh.msh_12 = hl7_version  # Version ID
+    msh_segment = generate_msh_segment(hl7_version, message_type, event_type)
+    msg.add(msh_segment)
     ## EVN
     msg.evn.evn_1 = event_type
     ## PID
@@ -58,18 +40,12 @@ def generate_adt_a03(message_type, event_type, hl7_version):
     msg.add(in1_segment)
     return msg.to_er7().replace('\r', '\n')
 
+## Function to assemble and generate message for SIU S12
 def generate_siu_s12(message_type, event_type, hl7_version):
     msg = Message("SIU_S12", version=hl7_version)
     ## MSH
-    msg.msh.msh_3 = SENDING_APPLICATION
-    msg.msh.msh_4 = SENDING_FACILITY
-    msg.msh.msh_5 = RECEIVING_APPLICATION
-    msg.msh.msh_6 = RECEIVING_FACILITY
-    msg.msh.msh_7 = MESSAGE_DATE_TIME  # Message date/time in YYYYMMDDHHMMSS format
-    msg.msh.msh_9 = message_type + "^" + event_type  # Message type
-    msg.msh.msh_10 = "123456"  # Message control ID
-    msg.msh.msh_11 = "P"  # Processing ID
-    msg.msh.msh_12 = hl7_version  # Version ID
+    msh_segment = generate_msh_segment(hl7_version, message_type, event_type)
+    msg.add(msh_segment)
     ## EVN
     msg.evn.evn_1 = event_type
     ## SCH

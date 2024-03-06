@@ -13,6 +13,14 @@ insurances = [
     }
  ]
 
+reasons = [
+        "CHECK-UP",
+        "EMERGENCY",
+        "FOLLOW-UP",
+        "ROUTINE",
+        "WALK-IN"
+]
+
 organizations = [
     {
         'organization': 'Mountain View Health System',

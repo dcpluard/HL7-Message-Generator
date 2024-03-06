@@ -6,7 +6,29 @@ from utilities import generate_hospital_name, generate_npi, get_admit_date_time,
 
 fake = Faker()
 
+# Function called by message_generation.py to generate data and create MSH segment 
+def generate_msh_segment(hl7_version, message_type, event_type):
+    sending_application = "CLIENTADT"
+    sending_facility = "CLIENTFACILITY"
+    receiving_application = "INTELY"
+    receiving_facility = "INTELY"
+    msg_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
+    
+    msh = Segment('MSH', version=hl7_version)
 
+    msh.msh_3 = sending_application
+    msh.msh_4 = sending_facility
+    msh.msh_5 = receiving_application
+    msh.msh_6 = receiving_facility
+    msh.msh_7 = msg_datetime  # Message date/time in YYYYMMDDHHMMSS format
+    msh.msh_9 = message_type + "^" + event_type  # Message type
+    msh.msh_10 = "123456"  # Message control ID
+    msh.msh_11 = "P"  # Processing ID
+    msh.msh_12 = hl7_version  # Version ID
+
+    return msh
+
+# Function called by message_generation.py to generate data and create PID segment 
 def generate_pid_segment(hl7_version):
     gender_picker = random.randint(1,2)
     pid = Segment('PID', version=hl7_version)
@@ -34,6 +56,7 @@ def generate_pid_segment(hl7_version):
 
     return pid, patient_last_name, patient_first_name
 
+# Function called by message_generation.py to generate data and create PV1 segment 
 def generate_pv1_segment(hl7_version, event_type):
     pv1 = Segment('PV1', version=hl7_version)
     pv1.pv1_2 = "I"  # Patient class (I = Inpatient)
@@ -69,6 +92,7 @@ def generate_pv1_segment(hl7_version, event_type):
 
     return pv1
 
+# Function called by message_generation.py to generate data and create SCH segment 
 def generate_sch_segment(hl7_version):
     sch = Segment('SCH', version=hl7_version)
     sch.sch_1 = "PL-APPT" + str(random.randint(100000,999999)) # Placer Appt ID
@@ -93,6 +117,7 @@ def generate_sch_segment(hl7_version):
 
     return sch
 
+# Function called by message_generation.py to generate data and create IN1 segment 
 def generate_in1_segment(hl7_version, patient_last_name, patient_first_name):
     in1 = Segment('IN1', version=hl7_version)
     in1.in1_1 = '1' ## SET ID
@@ -105,24 +130,28 @@ def generate_in1_segment(hl7_version, patient_last_name, patient_first_name):
 
     return in1
 
+# Function called by message_generation.py to generate data and create RGS segment group
 def generate_rgs_segment(hl7_version):
     rgs = Segment('RGS', version=hl7_version)
     rgs.rgs_1 = '1' ## Set ID
 
     return rgs
 
+# Function called by message_generation.py to generate data and create AIS segment 
 def generate_ais_segment(hl7_version):
     ais = Segment('AIS', version=hl7_version)
     ais.ais_1 = '1' ## Set ID
 
     return ais
 
+# Function called by message_generation.py to generate data and create AIG segment 
 def generate_aig_segment(hl7_version):
     aig = Segment('AIG', version=hl7_version)
     aig.aig_1 = '1' ## Set ID
 
     return aig
 
+# Function called by message_generation.py to generate data and create AIL segment 
 def generate_ail_segment(hl7_version):
     ail = Segment('AIL', version=hl7_version)
     ail.ail_1 = '1' ## Set ID
