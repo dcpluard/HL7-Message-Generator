@@ -141,6 +141,25 @@ def generate_rgs_segment(hl7_version):
 def generate_ais_segment(hl7_version):
     ais = Segment('AIS', version=hl7_version)
     ais.ais_1 = '1' ## Set ID
+    ## Universal Service Identifier
+    ais.ais_3.ais_3_1 = 'Service Identifier'
+    ais.ais_3.ais_3_2 = 'Text'
+    ais.ais_3.ais_3_3 = 'Name of Coding System'
+    ais.ais_3.ais_3_4 = 'Alternate Identifier'
+    ais.ais_3.ais_3_5 = 'Alternate Text'
+    ais.ais_3.ais_3_6 = 'Name of Alt Coding System'
+    ## Start Date/Time
+    ais.ais_4 = 'Start Date/Time'
+    ## Start Date/Time Offset
+    ais.ais_5 = 'Start Date/Time Offset'
+    ## Start Date/Time Offset Units
+    ais.ais_6 = 'Start Date/Time Offset Units'
+    ## Duration
+    ais.ais_7 = 'Duration'
+    ## Duration Units
+    ais.ais_8 = 'Duration Units'
+    ## Filler Status Code
+    ais.ais_10 = 'Filler Status Code'
 
     return ais
 
@@ -148,6 +167,39 @@ def generate_ais_segment(hl7_version):
 def generate_aig_segment(hl7_version):
     aig = Segment('AIG', version=hl7_version)
     aig.aig_1 = '1' ## Set ID
+    ## Resource ID
+    aig.aig_3.aig_3_1 = 'Resource Identifier'
+    aig.aig_3.aig_3_2 = 'Text'
+    aig.aig_3.aig_3_3 = 'Name of Coding System'
+    aig.aig_3.aig_3_4 = 'Alternate Identifier'
+    aig.aig_3.aig_3_5 = 'Alternate Text'
+    aig.aig_3.aig_3_6 = 'Name of Alt Coding System'
+    ## Resource Type
+    aig.aig_4.aig_4_1 = 'Resource Identifier'
+    aig.aig_4.aig_4_2 = 'Text'
+    aig.aig_4.aig_4_3 = 'Name of Coding System'
+    aig.aig_4.aig_4_4 = 'Alternate Identifier'
+    aig.aig_4.aig_4_5 = 'Alternate Text'
+    aig.aig_4.aig_4_6 = 'Name of Alt Coding System'
+    ## Resource Group
+    aig.aig_5.aig_5_1 = 'Resource Identifier'
+    aig.aig_5.aig_5_2 = 'Text'
+    aig.aig_5.aig_5_3 = 'Name of Coding System'
+    aig.aig_5.aig_5_4 = 'Alternate Identifier'
+    aig.aig_5.aig_5_5 = 'Alternate Text'
+    aig.aig_5.aig_5_6 = 'Name of Alt Coding System'
+    ## Start Date/Time
+    aig.aig_8 = 'Start Date/Time'
+    ## Start Date/Time Offset
+    aig.aig_9 = 'Start Date/Time Offset'
+    ## Start Date/Time Offset Units
+    aig.aig_10 = 'Start Date/Time Offset Units'
+    ## Duration
+    aig.aig_11 = 'Duration'
+    ## Duration Units
+    aig.aig_12 = 'Duration Units'
+    ## Filler Status Code
+    aig.aig_14 = 'Filler Status Code'
 
     return aig
 
@@ -155,5 +207,21 @@ def generate_aig_segment(hl7_version):
 def generate_ail_segment(hl7_version):
     ail = Segment('AIL', version=hl7_version)
     ail.ail_1 = '1' ## Set ID
+    ## Location Resource ID
+    ail.ail_3.ail_3_1 = 'Point of Care'
+    ail.ail_3.ail_3_2 = 'Room'
+    ail.ail_3.ail_3_3 = 'Bed'
+    ail.ail_3.ail_3_4 = 'Facility'
+    ail.ail_3.ail_3_5 = 'Location Status'
+    ail.ail_3.ail_3_6 = 'Person Location Type'
+    ail.ail_3.ail_3_7 = 'Building'
+    ail.ail_3.ail_3_8 = 'Floor'
+    ## Location Type
+    ail.ail_4.ail_4_1 = 'Identifier'
+    ail.ail_4.ail_4_2 = 'Text'
+    ail.ail_4.ail_4_3 = 'Name of Coding System'
+    ail.ail_4.ail_4_4 = 'Alternate Identifier'
+    ail.ail_4.ail_4_5 = 'Alternate Text'
+    ail.ail_4.ail_4_6 = 'Name of Alt Coding System'
 
     return ail
