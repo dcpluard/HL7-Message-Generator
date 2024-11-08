@@ -29,7 +29,7 @@ def main():
         file_name = str(MESSAGE_ID)
 
         # define base path
-        base_path = "messages"
+        base_path = os.path.join(os.path.dirname(__file__),"..","messages")
 
         # Check if the directory exists, if not, create it
         if not os.path.exists(base_path):

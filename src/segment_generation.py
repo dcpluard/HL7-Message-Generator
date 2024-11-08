@@ -7,8 +7,8 @@ from utilities import generate_hospital_name, generate_npi, get_admit_date_time,
 fake = Faker()
 
 # Function called by message_generation.py to generate data and create MSH segment 
-def generate_msh_segment(hl7_version, message_type, event_type):
-    sending_application = "CLIENTADT"
+def generate_msh_segment(hl7_version, message_type, event_type, msg):
+    sending_application = "CLIENTEMR"
     sending_facility = "CLIENTFACILITY"
     receiving_application = "INTELY"
     receiving_facility = "INTELY"
@@ -16,15 +16,15 @@ def generate_msh_segment(hl7_version, message_type, event_type):
     
     msh = Segment('MSH', version=hl7_version)
 
-    msh.msh_3 = sending_application
-    msh.msh_4 = sending_facility
-    msh.msh_5 = receiving_application
-    msh.msh_6 = receiving_facility
-    msh.msh_7 = msg_datetime  # Message date/time in YYYYMMDDHHMMSS format
-    msh.msh_9 = message_type + "^" + event_type  # Message type
-    msh.msh_10 = "123456"  # Message control ID
-    msh.msh_11 = "P"  # Processing ID
-    msh.msh_12 = hl7_version  # Version ID
+    msg.msh.msh_3 = sending_application
+    msg.msh.msh_4 = sending_facility
+    msg.msh.msh_5 = receiving_application
+    msg.msh.msh_6 = receiving_facility
+    msg.msh.msh_7 = msg_datetime  # Message date/time in YYYYMMDDHHMMSS format
+    msg.msh.msh_9 = message_type + "^" + event_type  # Message type
+    msg.msh.msh_10 = "123456"  # Message control ID
+    msg.msh.msh_11 = "P"  # Processing ID
+    msg.msh.msh_12 = hl7_version  # Version ID
 
     return msh
 

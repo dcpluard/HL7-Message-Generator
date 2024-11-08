@@ -6,8 +6,8 @@ from segment_generation import generate_msh_segment, generate_pid_segment, gener
 def generate_adt_a01(message_type, event_type, hl7_version):
     msg = Message("ADT_A01", version=hl7_version)
     ## MSH
-    msh_segment = generate_msh_segment(hl7_version, message_type, event_type)
-    msg.add(msh_segment)
+    msh_segment = generate_msh_segment(hl7_version, message_type, event_type, msg)
+    #msg.add(msh_segment)
     ## EVN
     msg.evn.evn_1 = event_type
     ## PID
@@ -25,8 +25,8 @@ def generate_adt_a01(message_type, event_type, hl7_version):
 def generate_adt_a03(message_type, event_type, hl7_version):
     msg = Message("ADT_A03", version=hl7_version)
     ## MSH
-    msh_segment = generate_msh_segment(hl7_version, message_type, event_type)
-    msg.add(msh_segment)
+    msh_segment = generate_msh_segment(hl7_version, message_type, event_type, msg)
+    #msg.add(msh_segment)
     ## EVN
     msg.evn.evn_1 = event_type
     ## PID
@@ -44,10 +44,8 @@ def generate_adt_a03(message_type, event_type, hl7_version):
 def generate_siu_s12(message_type, event_type, hl7_version):
     msg = Message("SIU_S12", version=hl7_version)
     ## MSH
-    msh_segment = generate_msh_segment(hl7_version, message_type, event_type)
-    msg.add(msh_segment)
-    ## EVN
-    msg.evn.evn_1 = event_type
+    msh_segment = generate_msh_segment(hl7_version, message_type, event_type, msg)
+    #msg.add(msh_segment)
     ## SCH
     sch_segment = generate_sch_segment(hl7_version)
     msg.add(sch_segment)
